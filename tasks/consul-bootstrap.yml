@@ -1,0 +1,13 @@
+---
+- hosts: "bootstrap-server"
+  sudo: yes
+
+  tasks:
+    - name: Generate consul key
+      shell: /opt/consul keygen
+      register: key
+
+    - name: Bootstrap configuration
+      template:
+        src: ../templates/bootstrap-config.j2
+        dest: /etc/consul.d/bootstrap/config.json

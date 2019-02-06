@@ -1,0 +1,19 @@
+---
+- hosts: "client"
+  sudo: yes
+
+  tasks:
+
+    - name: Referencing key consul
+      debug:
+        var: hostvars[groups['bootstrap-server'][0]]['key']['stdout_lines']
+
+    - name: Consul client configuration
+      template:
+        src: ../templates/client-config.j2
+        dest: /etc/consul.d/client/config.json
+
+    - name: Download Consul UI
+      get_url:
+        url: https://github.com/jippi/hashi-ui/releases/download/v1.0.0/hashi-ui-linux-amd64
+        dest: /opt/

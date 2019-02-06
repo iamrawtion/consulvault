@@ -1,0 +1,39 @@
+---
+- hosts: "bootstrap-server, consul-server, client"
+  sudo: yes
+
+  tasks:
+    - name: Download Consul Server Zip
+      get_url:
+        url: https://releases.hashicorp.com/consul/1.4.2/consul_1.4.2_linux_amd64.zip
+        dest: /opt/
+
+    - name: Install unzip
+      package:
+        name: unzip
+        state: present
+
+    - name: Extract Binary
+      unarchive:
+        src: /opt/consul_1.4.2_linux_amd64.zip
+        dest: /opt/
+        remote_src: yes
+
+    - name: Create consul user
+      user:
+        name: consul
+        state: present
+
+    - name: Create configuration hierarchy
+      file:
+        path: "{{ item }}"
+        owner: consul
+        group: consul
+        mode: 0755
+        state: directory
+        recurse: yes
+      with_items:
+        - /etc/consul.d/bootstrap
+        - /etc/consul.d/server
+        - /etc/consul.d/client
+        - /var/consul

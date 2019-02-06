@@ -1,0 +1,14 @@
+[all:vars]
+ansible_connection=ssh
+ansible_user=vagrant
+
+[consul-server]
+consul-server1
+consul-server2
+
+[bootstrap-server]
+bootstrap-server1
+
+[client]
+client
+

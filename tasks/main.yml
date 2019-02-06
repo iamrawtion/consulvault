@@ -1,0 +1,11 @@
+---
+- hosts: all
+  remote_user: "{{ ansible_user }}"
+  gather_facts: no
+  vars_files:
+    - ../vars/main.yml
+
+- include: consul-server.yml
+- include: consul-bootstrap.yml
+- include: consul-regular.yml
+- include: consul-client.yml

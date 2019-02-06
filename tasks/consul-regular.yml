@@ -1,0 +1,14 @@
+---
+- hosts: "consul-server"
+  sudo: yes
+
+  tasks:
+
+    - name: Referencing key
+      debug:
+        var: hostvars[groups['bootstrap-server'][0]]['key']['stdout_lines']
+
+    - name: Consul Regular server configuration
+      template:
+        src: ../templates/server-config.j2
+        dest: /etc/consul.d/server/config.json
