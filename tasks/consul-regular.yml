@@ -1,5 +1,5 @@
 ---
-- hosts: "consul-server"
+- hosts: "bootstrap-server, consul-server"
   sudo: yes
 
   tasks:
@@ -12,3 +12,11 @@
       template:
         src: ../templates/server-config.j2
         dest: /etc/consul.d/server/config.json
+
+    - name: Create Startup script Server
+      template:
+        src: ../templates/server-init.j2
+        dest: /etc/init/consul.conf
+
+    - name: Start consul bootstrap
+      command: start consul

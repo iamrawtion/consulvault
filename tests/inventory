@@ -5,10 +5,14 @@ ansible_user=vagrant
 [consul-server]
 consul-server1
 consul-server2
+bootstrap-server1
 
 [bootstrap-server]
 bootstrap-server1
 
 [client]
-client
-
+client1
+client2
+client3
+client4
+client5

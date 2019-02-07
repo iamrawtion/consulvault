@@ -1,0 +1,7 @@
+description "Consul server process"
+start on (local-filesystems and net-device-up IFACE=eth0)
+stop on runlevel [!12345]
+respawn
+setuid consul
+setgid consul
+exec /opt/consul agent -config-dir /etc/consul.d/client -bind="{{ ansible_eth1.ipv4.address }}"

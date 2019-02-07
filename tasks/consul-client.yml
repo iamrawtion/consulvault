@@ -13,7 +13,10 @@
         src: ../templates/client-config.j2
         dest: /etc/consul.d/client/config.json
 
-    - name: Download Consul UI
-      get_url:
-        url: https://github.com/jippi/hashi-ui/releases/download/v1.0.0/hashi-ui-linux-amd64
-        dest: /opt/
+    - name: Create Startup script for client
+      template:
+        src: ../templates/client-init.j2
+        dest: /etc/init/consul.conf
+
+    - name: Start consul bootstrap
+      command: start consul
