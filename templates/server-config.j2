@@ -2,6 +2,7 @@
   "bootstrap": false,
   "server": true,
   "datacenter": "nyc2",
+  "bootstrap_expect": 3,
   "data_dir": "/var/consul",
   "encrypt": "{{ hostvars[groups['bootstrap-server'][0]]['key']['stdout'] }}",
   "log_level": "INFO",
@@ -9,6 +10,6 @@
   "start_join": [{% for host in groups['consul-server'] %}
   {%- if loop.first %}{% endif %}
   "{{ hostvars[host]['ansible_eth1']['ipv4']['address'] }}"
-  {%- if loop.first %},{% endif %}
+  {%- if not loop.last %},{% endif %}
   {% endfor %}]
 }

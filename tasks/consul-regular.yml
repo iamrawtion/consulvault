@@ -1,5 +1,5 @@
 ---
-- hosts: "bootstrap-server, consul-server"
+- hosts: "consul-server"
   sudo: yes
 
   tasks:

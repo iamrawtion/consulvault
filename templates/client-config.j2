@@ -3,16 +3,12 @@
   "datacenter": "nyc2",
   "data_dir": "/var/consul",
   "encrypt": "{{ hostvars[groups['bootstrap-server'][0]]['key']['stdout'] }}",
-  "ui_dir": "/home/consul/dist",
+  "ui": true,
   "log_level": "INFO",
   "enable_syslog": true,
   "start_join": [{% for host in groups['consul-server'] %}
   {%- if loop.first %}{% endif %}
   "{{ hostvars[host]['ansible_eth1']['ipv4']['address'] }}"
-  {%- if loop.first %},{% endif %}
-  {% endfor %}, {% for host in groups['bootstrap-server'] %}
-  {%- if loop.first %}{% endif %}
-  "{{ hostvars[host]['ansible_eth1']['ipv4']['address'] }}"
-  {%- if loop.first %}{% endif %}
+  {%- if not loop.last %},{% endif %}
   {% endfor %}]
 }
